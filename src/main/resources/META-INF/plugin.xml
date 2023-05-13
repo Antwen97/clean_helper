@@ -1,0 +1,39 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.clean.helper.clean_helper</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Clean Helper</name>
+    <version>1.0</version>
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="developer@antwen.dev">Antwen</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Clean Architecture directories maker.<br>
+    Developed mainly to speed up the developing of your frontend projects (e.g. using Flutter) just with helping you creating an empty feature structure.<br>
+    It creates 3 roots folders called "domain", "data" and "presentation" and their own subdirectories in line with clean architecture structure.
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTemplateGroup implementation="com.clean.helper.clean_helper.template.FileTemplateFactory"/>
+    </extensions>>
+
+    <actions>
+        <action id="CleanHelper.Template"
+                class="com.clean.helper.clean_helper.AddStructureAction">
+            <add-to-group group-id="NewGroup" anchor="first"/> <!-- "NewGroup" is important -->
+        </action>
+    </actions>
+</idea-plugin>
