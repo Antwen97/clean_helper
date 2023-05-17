@@ -21,7 +21,7 @@ Here the two wasys to install it:
 ### How to use the plugin
 
 #### Right-click on the root folder that will contain the feature root
-![alt-text](src/main/resources/images/Menu_Screen.png "optional-title")
+![alt-text](src/main/resources/images/Menu_screen.png "optional-title")
 
 #### Give a name to the feature
 ![alt-text](src/main/resources/images/Name_selection.png "optional-title")
