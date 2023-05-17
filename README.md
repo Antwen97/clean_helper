@@ -16,21 +16,18 @@ Here the two wasys to install it:
 #### JetBrains MarketPlace:
 ![alt-text](src/main/resources/images/Marketplace.png "optional-title")
 #### IDE Marketplace:
-![alt-text](src/main/resources/images/IDE Market.png "optional-title")
+![alt-text](src/main/resources/images/IDE_Market.png "optional-title")
 
 ### How to use the plugin
 
 #### Right-click on the root folder that will contain the feature root
-![alt-text](src/main/resources/images/Menu Screen.png "optional-title")
-
-#### Right-click on the root folder that will contain the feature root
-![alt-text](src/main/resources/images/Menu Screen.png "optional-title")
+![alt-text](src/main/resources/images/Menu_Screen.png "optional-title")
 
 #### Give a name to the feature
-![alt-text](src/main/resources/images/NAme selection.png "optional-title")
+![alt-text](src/main/resources/images/Name_selection.png "optional-title")
 
 #### And then enjoy your folder structure
-![alt-text](src/main/resources/images/Generated Content.png "optional-title")
+![alt-text](src/main/resources/images/Generated_Content.png "optional-title")
 
 ## Additional Information
 If you like my project, and you want to support my work, just
