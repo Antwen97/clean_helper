@@ -16,7 +16,8 @@
     <description><![CDATA[
     Clean Architecture directories maker.<br>
     Developed mainly to speed up the developing of your frontend projects (e.g. using Flutter) just with helping you creating an empty feature structure.<br>
-    It creates 3 roots folders called "domain", "data" and "presentation" and their own subdirectories in line with clean architecture structure.
+    It creates 3 roots folders called "domain", "data" and "presentation" and their own subdirectories in line with clean architecture structure.<br>
+    It also let the user choose to create the bloc classes and an empty Stateful Widget.
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
