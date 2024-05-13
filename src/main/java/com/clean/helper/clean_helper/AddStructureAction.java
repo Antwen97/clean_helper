@@ -25,11 +25,15 @@ public class AddStructureAction extends AnAction {
 
 
     public AddStructureAction() {
-        super(
-                "Clean Architecture Structure",
-                "It creates 3 roots folders called \"domain\", \"data\" and \"presentation\" and their own subdirectories in line with clean architecture structure.",
-                Icons.ActionIcon
-        );
+        super();
+        super.getTemplatePresentation().setText("Clean Architecture Structure");
+        super.getTemplatePresentation().setDescription("It creates 3 roots folders called \"domain\", \"data\" and \"presentation\" and their own subdirectories in line with clean architecture structure.");
+        super.getTemplatePresentation().setIcon(Icons.ActionIcon);
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     @Override
@@ -42,8 +46,6 @@ public class AddStructureAction extends AnAction {
             return;
         }
 
-        String templateName = "JavaFXApplication";
-
         Project project = PlatformDataKeys.PROJECT.getData(dataContext);
         PropsDialog infoForm = new PropsDialog(project, view);
         infoForm.getWindow().setIconImage(Icons.ActionImageIcon.getImage());
@@ -52,9 +54,9 @@ public class AddStructureAction extends AnAction {
 
         if (infoForm.getExitCode() == DialogWrapper.OK_EXIT_CODE && project != null)
         {
-            FileTemplate fileTemplate = FileTemplateManager.getInstance(project).getInternalTemplate(templateName);
+            FileTemplate fileTemplate = FileTemplateManager.getInstance(project).getInternalTemplates()[0];
 
-            PsiElement element = createFile(project, infoForm.getStructureName(), templateName, Objects.requireNonNull(view.getOrChooseDirectory()), infoForm.isStatefulBoxSelected(), infoForm.isBlocBoxSelected());
+            PsiElement element = createFile(project, infoForm.getStructureName(), fileTemplate.getName(), Objects.requireNonNull(view.getOrChooseDirectory()), infoForm.isStatefulBoxSelected(), infoForm.isBlocBoxSelected());
         }
     }
 
@@ -71,7 +73,7 @@ public class AddStructureAction extends AnAction {
     protected void buildDialog(@NotNull Project project, @NotNull PsiDirectory directory, CreateFileFromTemplateDialog.@NotNull Builder builder) {
         builder
                 .setTitle("New Clean Architecture Structure")
-                .addKind("Clean Architecture Structure", Icons.ActionIcon, "Clean Architecture Structure")
+                .addKind("Clean architecture structure", Icons.ActionIcon, "Clean Architecture Structure")
                 .setValidator(new InputValidatorEx() {
                     @Override
                     public @Nullable String getErrorText(@NonNls String inputString) {
@@ -100,7 +102,7 @@ public class AddStructureAction extends AnAction {
             PsiDocumentManager documentManager = PsiDocumentManager.getInstance(project);
             System.out.println("Starting Creating Structure...");
             dir.createSubdirectory(name);
-            var featureRoot = dir.findSubdirectory(name);
+            @Nullable PsiDirectory featureRoot = dir.findSubdirectory(name);
 
             if(featureRoot != null) {
                 //region Root Section
@@ -110,7 +112,7 @@ public class AddStructureAction extends AnAction {
                 //endregion
 
                 //region data Section
-                var featureSubRoot = featureRoot.findSubdirectory("data");
+                @Nullable PsiDirectory featureSubRoot = featureRoot.findSubdirectory("data");
                 if(featureSubRoot != null) {
                     featureSubRoot.createSubdirectory("datasources");
                     featureSubRoot.createSubdirectory("repositories");
@@ -152,7 +154,7 @@ public class AddStructureAction extends AnAction {
                         featureSubRoot = featureSubRoot.findSubdirectory("pages");
                     }
                     //region FileContent
-                    var className = replaceWithUpperCase(name)+"Page";
+                    String className = replaceWithUpperCase(name)+"Page";
                     String widgetContent = "import 'package:flutter/material.dart';\n\n" +
                             "class "+className+" extends StatefulWidget {\n\n" +
                             "\tconst "+className+ "({super.key});\n\n" +
@@ -161,7 +163,7 @@ public class AddStructureAction extends AnAction {
                             "}\n\n" +
                             "class _"+className+"State extends State<"+className+"> {\n"+
                             "\n\t@override\n\tWidget build(BuildContext context) {\n" +
-                            "\t\t\n" +
+                            "\t\treturn Container();\n" +
                             "\t}\n}";
                     //endregion
 
@@ -175,9 +177,9 @@ public class AddStructureAction extends AnAction {
                     featureSubRoot = featureSubRoot.createSubdirectory(name+"_bloc");
 
                     //region Blocs Content
-                    var blocClassName = camelCaseName+"Bloc";
-                    var stateClassName = camelCaseName+"State";
-                    var eventClassName = camelCaseName+"Event";
+                    String blocClassName = camelCaseName+"Bloc";
+                    String stateClassName = camelCaseName+"State";
+                    String eventClassName = camelCaseName+"Event";
                     String blocContent = "import 'package:flutter_bloc/flutter_bloc.dart';\n\n" +
                             "part '"+ name +"_event.dart';\n" +
                             "part '"+ name +"_state.dart';\n\n" +
@@ -188,18 +190,13 @@ public class AddStructureAction extends AnAction {
                             "\t\t});\n" +
                             "\t}\n}";
                     String eventContent = "part of '"+name+"_bloc.dart';\n\n" +
-                            "abstract class "+camelCaseName+"Event extends Equatable {\n\n" +
-                            "\tconst "+camelCaseName+"Event();\n\n" +
-                            "\t@override\n" +
-                            "\tList<Object?> get props => [];\n" +
-                            "}";
+                            "abstract class "+camelCaseName+"Event {\n\n" +
+                            "\tconst "+camelCaseName+"Event();\n\n";
                     String stateContent = "part of '"+name+"_bloc.dart';\n\n" +
-                            "abstract class "+camelCaseName+"State extends Equatable {\n\n" +
+                            "abstract class "+camelCaseName+"State {\n\n" +
                             "\tconst "+camelCaseName+"State();\n\n" +
-                            "\t@override\n" +
-                            "\tList<Object?> get props => [];\n" +
                             "}\n\n" +
-                            "class "+camelCaseName+"Initial extends"+camelCaseName+"State {\n" +
+                            "class "+camelCaseName+"Initial extends "+camelCaseName+"State {\n" +
                             "\tconst "+camelCaseName+"Initial();\n" +
                             "}";
                     //endregion

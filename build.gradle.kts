@@ -1,11 +1,13 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.8.20"
-    id("org.jetbrains.intellij") version "1.13.3"
+    id("org.jetbrains.kotlin.jvm") version "1.9.24"
+    id("org.jetbrains.intellij") version "1.17.3"
 }
 
 group = "com.clean.helper"
-version = "1.0"
+version = "1.1"
 
 repositories {
     mavenCentral()
@@ -14,25 +16,40 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2022.2.5")
+    version.set("2024.1.1")
     type.set("IC") // Target IDE Platform
 
     plugins.set(listOf(/* Plugin Dependencies */))
 }
 
+sourceSets {
+    main {
+        java {
+            setSrcDirs(listOf("src/main/java"))
+        }
+        resources {
+            setSrcDirs(listOf("src/main/resources"))
+        }
+    }
+}
+
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = JavaVersion.VERSION_17.toString()
+        targetCompatibility = JavaVersion.VERSION_17.toString()
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+            apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+            languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+        }
     }
 
     patchPluginXml {
-        sinceBuild.set("222")
-        //untilBuild.set("232.*")
+        sinceBuild.set("233")
+        untilBuild.set("")
     }
 
     signPlugin {

@@ -5,6 +5,8 @@ Developed mainly to speed up the developing of your frontend projects (e.g. usin
 
 It creates 3 roots folders called "domain", "data" and "presentation" and their own subdirectories in line with clean architecture structure.
 
+It also let the user choose to create the bloc classes and an empty Stateful Widget.
+
 ## Screenshots
 
 As described in the introduction, this section, shows effectively the complete folder structure creation.

@@ -17,9 +17,9 @@ public class PropsDialog extends DialogWrapper {
     private JCheckBox statefulWidgetOption;
     private JCheckBox blocOption;
     private JTextField fileNameField;
-    private JLabel errorLabel = new JLabel("");
+    private final JLabel errorLabel = new JLabel("");
 
-    private IdeView view;
+    private final IdeView view;
 
     public PropsDialog(Project project, IdeView view) {
         super(true); // use current window as parent
@@ -132,13 +132,13 @@ public class PropsDialog extends DialogWrapper {
     }
 
     private void setValidBorder() {
-        var errorColor = Color.RGBtoHSB(69,73,74, null);
+        float[] errorColor = Color.RGBtoHSB(69,73,74, null);
         fileNameField.setToolTipText(null);
         fileNameField.setBackground(Color.getHSBColor(errorColor[0], errorColor[1], errorColor[2]));
     }
 
     private void setErrorBorder() {
-        var errorColor = Color.RGBtoHSB(175,26,26, null);
+        float[] errorColor = Color.RGBtoHSB(175,26,26, null);
         fileNameField.setToolTipText("Feature already exists.");
         fileNameField.setBackground(Color.getHSBColor(errorColor[0], errorColor[1], errorColor[2]));
     }

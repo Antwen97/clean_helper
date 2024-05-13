@@ -33,7 +33,10 @@
 
     <actions>
         <action id="CleanHelper.Template"
-                class="com.clean.helper.clean_helper.AddStructureAction">
+                class="com.clean.helper.clean_helper.AddStructureAction"
+                text="Clean Architecture Structure"
+                description="It creates 3 roots folders called 'domain'', 'data' and 'presentation' and their own subdirectories in line with clean architecture structure."
+                icon="/icons/ActionLogo.svg">
             <add-to-group group-id="NewGroup" anchor="first"/> <!-- "NewGroup" is important -->
         </action>
     </actions>
